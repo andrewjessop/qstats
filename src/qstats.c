@@ -36,7 +36,7 @@
 
 
 const char *header_text = 
-    "\nqstats v1.0.1 -- quick and dirty statistics tool for the "
+    "\nqstats v1.0.2 -- quick and dirty statistics tool for the "
     "Unix pipeline\n";
 
 const char *usage_text =
@@ -162,6 +162,10 @@ int process_call(FILE* input, Cliopts cliopts){
         double first_quartile;
         double median;
         double third_quartile;
+		double ninetieth_percentile;
+		double ninetyfifth_percentile;
+		double ninetynineth_percentile;
+
         /* if the size is less than five, no meaningful
            summary can be made */
         if(size < 5){
@@ -172,18 +176,23 @@ int process_call(FILE* input, Cliopts cliopts){
         first_quartile = quartile_call_result[0];
         median = quartile_call_result[1];
         third_quartile = quartile_call_result[2];
+        ninetieth_percentile = quartile_call_result[3];
+        ninetyfifth_percentile = quartile_call_result[4];
+		ninetynineth_percentile = quartile_call_result[5];
         printf("Min.     %g\n", the_min);
         printf("1st Qu.  %g\n", first_quartile);
         printf("Median   %g\n", median);
         printf("Mean     %g\n", mean);
         printf("3rd Qu.  %g\n", third_quartile);
+        printf("P90.     %g\n", ninetieth_percentile);
+        printf("P95.     %g\n", ninetyfifth_percentile);
+		printf("P99.     %g\n", ninetynineth_percentile);
         printf("Max.     %g\n", the_max);
         printf("Range    %g\n", (the_max - the_min));
         printf("Std Dev. %g\n", stddev);
         printf("Length   %d\n", size);
     }
 
-    free(data_array);
     return EXIT_SUCCESS;
 }
 

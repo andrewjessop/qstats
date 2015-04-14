@@ -62,8 +62,9 @@ int read_column(double** delivery_array, FILE *input){
         }
         ret_val = sscanf(line, "%lf", &current);
         if(ret_val == 0){
-            fprintf(stderr, "Error parsing numerics on line %d: %s", index+1, line);
-            exit(EXIT_FAILURE);
+            //fprintf(stderr, "Error parsing numerics on line %d: %s", index+1, line);
+            //exit(EXIT_FAILURE);
+            continue;
         }
         build_array[index] = current;
         index++;

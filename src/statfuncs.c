@@ -186,7 +186,22 @@ double *get_quartiles(double *data_array, int size){
     double median;
     double first_quartile;
     double third_quartile;
+    double ninetieth_percentile;
+    double ninetyfifth_percentile;
+	double ninetynineth_percentile;
+
+
+	// AJ: get a fairly rough P90, P95 and P99 stat - pretty hack
+	int i90p = floor(size * 0.90) - 1;
+	int i95p = floor(size * 0.95) - 1;
+	int i99p = floor(size * 0.99) - 1;
+
+	ninetieth_percentile = data_array[i90p];
+	ninetyfifth_percentile = data_array[i95p];
+	ninetynineth_percentile = data_array[i99p];
+
     if(size % 2 == 1){
+		// if odd number of data rows
         int imid = floor(size/2);
         median = data_array[imid];
         if(imid % 2 == 1){
@@ -204,7 +219,8 @@ double *get_quartiles(double *data_array, int size){
             third_quartile = ((data_array[i3qb] + data_array[i3qa]) / 2);
         }
     }
-    else{
+	else{
+		// else - even number of data rows
         int imida = size/2;
         int imidb = imida-1;
         median = ((data_array[imidb] + data_array[imida]) / 2);
@@ -226,6 +242,9 @@ double *get_quartiles(double *data_array, int size){
     ret_ar[0] = first_quartile;
     ret_ar[1] = median;
     ret_ar[2] = third_quartile;
+    ret_ar[3] = ninetieth_percentile;
+    ret_ar[4] = ninetyfifth_percentile;
+	ret_ar[5] = ninetynineth_percentile;
     return(ret_ar);
 }
 
